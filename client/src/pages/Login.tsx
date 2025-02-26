@@ -41,7 +41,7 @@ const Login: React.FC = () => {
       setDemoLoading(true);
       setError('');
       // Use demo account credentials here - these should match a real account in your database
-      await login('demo@example.com', 'demo123');
+      await login('demo@example.com', 'password');
       navigate('/');
     } catch (err: any) {
       if (err.response && err.response.data) {
