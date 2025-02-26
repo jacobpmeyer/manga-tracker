@@ -1,0 +1,150 @@
+.home-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.home-header h1 {
+  margin: 0;
+  color: #333;
+}
+
+.add-button {
+  background-color: #4cd137;
+  color: white;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+.add-button:hover {
+  background-color: #44bd32;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  min-width: 140px;
+  flex: 1;
+}
+
+.filter-group label {
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.filter-group select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.search-filter {
+  flex: 2;
+}
+
+.search-filter input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.collection-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  font-size: 1.2rem;
+  color: #777;
+}
+
+.error-message {
+  background-color: #ff7675;
+  color: white;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.manga-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.empty-collection {
+  padding: 40px;
+  text-align: center;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  color: #777;
+}
+
+.empty-collection p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+}
+
+.empty-collection .add-button {
+  margin: 0 auto;
+  display: inline-block;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .home-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+
+  .filters > div {
+    width: 100%;
+  }
+
+  .collection-stats {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .add-button {
+    width: 100%;
+    text-align: center;
+  }
+}
