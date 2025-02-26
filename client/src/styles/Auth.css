@@ -89,3 +89,37 @@
 .auth-links a:hover {
   text-decoration: underline;
 }
+
+.demo-login {
+  margin-top: 16px;
+  text-align: center;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+}
+
+.demo-text {
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.demo-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.demo-button:hover {
+  background-color: #e67e22;
+}
+
+.demo-button:disabled {
+  background-color: #f7c982;
+  cursor: not-allowed;
+}

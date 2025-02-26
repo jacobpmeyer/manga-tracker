@@ -8,6 +8,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [demoLoading, setDemoLoading] = useState(false);
 
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -35,6 +36,23 @@ const Login: React.FC = () => {
     }
   };
 
+  const handleDemoLogin = async () => {
+    try {
+      setDemoLoading(true);
+      setError('');
+      // Use demo account credentials here - these should match a real account in your database
+      await login('demo@example.com', 'demo123');
+      navigate('/');
+    } catch (err: any) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.error || 'Demo login failed');
+      } else {
+        setError('Demo login failed. Please try again or use regular login.');
+      }
+      setDemoLoading(false);
+    }
+  };
+
   return (
     <div className="auth-container">
       <div className="auth-form-container">
@@ -51,7 +69,7 @@ const Login: React.FC = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              disabled={loading}
+              disabled={loading || demoLoading}
             />
           </div>
 
@@ -63,18 +81,29 @@ const Login: React.FC = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              disabled={loading}
+              disabled={loading || demoLoading}
             />
           </div>
 
           <button
             type="submit"
             className="auth-button"
-            disabled={loading}
+            disabled={loading || demoLoading}
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
         </form>
+
+        <div className="demo-login">
+          <p className="demo-text">Want to try without creating an account?</p>
+          <button
+            className="demo-button"
+            onClick={handleDemoLogin}
+            disabled={loading || demoLoading}
+          >
+            {demoLoading ? 'Accessing Demo...' : 'Use Demo Account'}
+          </button>
+        </div>
 
         <div className="auth-links">
           <p>
