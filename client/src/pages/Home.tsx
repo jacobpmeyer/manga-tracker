@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import MangaCard from '../components/MangaCard';
+import { Link, useNavigate } from 'react-router-dom';
 import api from '../services/api';
 import { IManga } from '../types/manga';
 import '../styles/Home.css';
@@ -12,6 +11,7 @@ const Home: React.FC = () => {
   const [filter, setFilter] = useState('all');
   const [ownershipFilter, setOwnershipFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchManga();
@@ -92,6 +92,24 @@ const Home: React.FC = () => {
     return true;
   });
 
+  const navigateToManga = (mangaId: string) => {
+    navigate(`/manga/${mangaId}`);
+  };
+
+  // Function to get status color
+  const getStatusColor = (status: string): string => {
+    switch (status) {
+      case 'Reading':
+        return '#f6e58d'; // yellow
+      case 'To Be Read':
+        return '#e17055'; // coral
+      case 'Read':
+        return '#6ab04c'; // green
+      default:
+        return '#dff9fb'; // light blue
+    }
+  };
+
   if (loading) {
     return <div className="loading-container">Loading your collection...</div>;
   }
@@ -148,16 +166,40 @@ const Home: React.FC = () => {
         <p>Filtered: {filteredManga.length} manga</p>
       </div>
 
-      <div className="manga-list">
+      <div className="manga-grid">
         {filteredManga.length > 0 ? (
           filteredManga.map(manga => (
-            <MangaCard
+            <div
+              className="manga-thumbnail"
               key={manga._id}
-              manga={manga}
-              onStatusChange={handleStatusChange}
-              onOwnershipChange={handleOwnershipChange}
-              onDelete={handleDelete}
-            />
+              style={{ borderColor: getStatusColor(manga.status) }}
+            >
+              <div
+                className="thumbnail-image"
+                onClick={() => navigateToManga(manga._id)}
+              >
+                <img src={manga.coverImage} alt={manga.title} />
+              </div>
+              <div className="thumbnail-info">
+                <h3
+                  className="thumbnail-title"
+                  onClick={() => navigateToManga(manga._id)}
+                >
+                  {manga.title}
+                </h3>
+                <div className="thumbnail-controls">
+                  <select
+                    value={manga.status}
+                    onChange={(e) => handleStatusChange(manga._id, e.target.value)}
+                    style={{ backgroundColor: getStatusColor(manga.status) }}
+                  >
+                    <option value="To Be Read">To Be Read</option>
+                    <option value="Reading">Reading</option>
+                    <option value="Read">Read</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           ))
         ) : (
           <div className="empty-collection">

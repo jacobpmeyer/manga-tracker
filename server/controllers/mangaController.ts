@@ -150,3 +150,21 @@ export const getMangaByMalId = async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+
+// Get a single manga by ID
+export const getMangaById = async (req: Request, res: Response) => {
+  try {
+    const userId = req.user.id;
+    const { mangaId } = req.params;
+
+    const manga = await Manga.findOne({ _id: mangaId, userId });
+    if (!manga) {
+      return res.status(404).json({ error: 'Manga not found' });
+    }
+
+    res.json(manga);
+  } catch (error) {
+    console.error('Error fetching manga by ID:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};

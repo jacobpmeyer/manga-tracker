@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AddManga from './pages/AddManga';
+import MangaShowPage from './pages/MangaShowPage';
 import Layout from './components/Layout';
 import { useContext } from 'react';
 import AuthContext from './context/AuthContext';
@@ -43,6 +44,13 @@ const App: React.FC = () => {
             <ProtectedRoute>
               <Layout>
                 <AddManga />
+              </Layout>
+            </ProtectedRoute>
+          } />
+          <Route path="/manga/:id" element={
+            <ProtectedRoute>
+              <Layout>
+                <MangaShowPage />
               </Layout>
             </ProtectedRoute>
           } />

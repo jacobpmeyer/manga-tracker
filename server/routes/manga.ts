@@ -6,7 +6,8 @@ import {
   updateMangaOwnership,
   deleteManga,
   searchManga,
-  getMangaByMalId
+  getMangaByMalId,
+  getMangaById
 } from '../controllers/mangaController';
 import auth from '../middleware/auth';
 
@@ -22,5 +23,6 @@ router.delete('/:mangaId', auth, deleteManga);
 // Public routes
 router.get('/search', searchManga);
 router.get('/mal/:malId', getMangaByMalId);
+router.get('/:mangaId', auth, getMangaById);
 
 export default router;
