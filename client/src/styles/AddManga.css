@@ -420,13 +420,13 @@
   .result-image {
     width: 100%;
     height: auto;
-    max-height: 200px;
+    max-height: 250px;
   }
 
   .result-image img {
     width: 100%;
     height: auto;
-    max-height: 200px;
+    max-height: 250px;
     object-fit: contain;
   }
 

@@ -394,6 +394,12 @@
   }
 
   .thumbnail-image {
-    height: 180px;
+    height: auto;
+    max-height: 250px;
+  }
+
+  .thumbnail-image img {
+    object-fit: contain;
+    height: auto;
   }
 }

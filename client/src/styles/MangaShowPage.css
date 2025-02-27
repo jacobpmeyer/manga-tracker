@@ -465,6 +465,8 @@
   .manga-cover img {
     width: 70%;
     max-width: 200px;
+    object-fit: contain;
+    height: auto;
   }
 
   .manga-info h1 {
