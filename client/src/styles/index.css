@@ -6,6 +6,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f8f9fa;
+  /* Add smooth scrolling for the entire site */
+  scroll-behavior: smooth;
 }
 
 code {
@@ -15,4 +17,48 @@ code {
 
 * {
   box-sizing: border-box;
+}
+
+/* Animation variables for consistent use across components */
+:root {
+  --transition-speed: 0.3s;
+  --hover-lift: translateY(-5px);
+  --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --card-shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.15);
+  --primary-color: #4a69bd;
+  --primary-color-hover: #3c5aa9;
+  --accent-color: #4cd137;
+  --accent-color-hover: #44bd32;
+  --danger-color: #e74c3c;
+  --danger-color-hover: #c0392b;
+}
+
+/* Basic animations for use with classes */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out;
+}
+
+/* Button hover effect */
+button, .button {
+  transition: all var(--transition-speed) ease !important;
 }

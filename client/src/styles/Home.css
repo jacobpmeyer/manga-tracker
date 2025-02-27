@@ -2,6 +2,7 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .home-header {
@@ -14,20 +15,64 @@
 .home-header h1 {
   margin: 0;
   color: #333;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+/* Manga-inspired title style */
+.home-header h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-image: linear-gradient(to right, var(--primary-color), var(--accent-color));
+  transition: width 0.3s ease;
+}
+
+.home-header h1:hover::after {
+  width: 100%;
 }
 
 .add-button {
-  background-color: #4cd137;
+  background-color: var(--accent-color);
   color: white;
   text-decoration: none;
   padding: 10px 16px;
   border-radius: 4px;
   font-size: 0.9rem;
   display: inline-block;
+  transition: all 0.3s ease;
+  transform-origin: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(76, 209, 55, 0.3);
 }
 
 .add-button:hover {
-  background-color: #44bd32;
+  background-color: var(--accent-color-hover);
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 6px 15px rgba(76, 209, 55, 0.4);
+}
+
+.add-button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.add-button::after {
+  content: "+";
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.add-button:hover::after {
+  opacity: 1;
+  left: 12px;
 }
 
 .filters {
@@ -38,7 +83,14 @@
   padding: 16px;
   background-color: #f8f9fa;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  animation: slideUp 0.5s ease-out;
+}
+
+.filters:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
 }
 
 .filter-group {
@@ -46,12 +98,18 @@
   flex-direction: column;
   min-width: 140px;
   flex: 1;
+  position: relative;
 }
 
 .filter-group label {
   margin-bottom: 6px;
   font-size: 0.9rem;
   color: #555;
+  transition: color 0.3s ease;
+}
+
+.filter-group:hover label {
+  color: var(--primary-color);
 }
 
 .filter-group select {
@@ -59,6 +117,19 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 0.9rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px;
+}
+
+.filter-group select:hover,
+.filter-group select:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(74, 105, 189, 0.1);
 }
 
 .search-filter {
@@ -71,6 +142,13 @@
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.search-filter input:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(74, 105, 189, 0.1);
+  outline: none;
 }
 
 .collection-stats {
@@ -79,6 +157,7 @@
   margin-bottom: 16px;
   font-size: 0.9rem;
   color: #777;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .loading-container {
@@ -90,12 +169,29 @@
   color: #777;
 }
 
+/* Loading animation */
+.loading-container::after {
+  content: "...";
+  animation: loadingDots 1.5s infinite;
+  width: 1.5em;
+  text-align: left;
+  display: inline-block;
+}
+
+@keyframes loadingDots {
+  0% { content: "."; }
+  33% { content: ".."; }
+  66% { content: "..."; }
+  100% { content: "."; }
+}
+
 .error-message {
   background-color: #ff7675;
   color: white;
   padding: 12px;
   border-radius: 4px;
   margin-bottom: 20px;
+  animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 /* Manga Grid Styles */
@@ -111,15 +207,48 @@
   flex-direction: column;
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--card-shadow);
   background-color: white;
   border-left: 4px solid #ccc;
   height: 100%;
-  transition: transform 0.2s ease;
+  transition: all var(--transition-speed) ease;
+  animation: fadeIn 0.5s ease-out;
+  animation-fill-mode: both;
 }
 
+/* Staggered animation for grid items */
+.manga-grid .manga-thumbnail:nth-child(1) { animation-delay: 0.05s; }
+.manga-grid .manga-thumbnail:nth-child(2) { animation-delay: 0.1s; }
+.manga-grid .manga-thumbnail:nth-child(3) { animation-delay: 0.15s; }
+.manga-grid .manga-thumbnail:nth-child(4) { animation-delay: 0.2s; }
+.manga-grid .manga-thumbnail:nth-child(5) { animation-delay: 0.25s; }
+.manga-grid .manga-thumbnail:nth-child(6) { animation-delay: 0.3s; }
+.manga-grid .manga-thumbnail:nth-child(7) { animation-delay: 0.35s; }
+.manga-grid .manga-thumbnail:nth-child(8) { animation-delay: 0.4s; }
+
 .manga-thumbnail:hover {
-  transform: translateY(-5px);
+  transform: var(--hover-lift);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.manga-thumbnail[data-status="reading"] {
+  border-left-color: #4a69bd;
+}
+
+.manga-thumbnail[data-status="completed"] {
+  border-left-color: #4cd137;
+}
+
+.manga-thumbnail[data-status="on-hold"] {
+  border-left-color: #fbc531;
+}
+
+.manga-thumbnail[data-status="dropped"] {
+  border-left-color: #e74c3c;
+}
+
+.manga-thumbnail[data-status="plan-to-read"] {
+  border-left-color: #a5b1c2;
 }
 
 .thumbnail-image {
@@ -127,12 +256,35 @@
   height: 200px;
   overflow: hidden;
   cursor: pointer;
+  position: relative;
+}
+
+.thumbnail-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0) 50%, rgba(0,0,0,0.3) 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.thumbnail-image:hover::before {
+  opacity: 1;
 }
 
 .thumbnail-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.thumbnail-image:hover img {
+  transform: scale(1.1);
 }
 
 .thumbnail-info {
@@ -152,10 +304,11 @@
   overflow: hidden;
   line-height: 1.3;
   height: 2.6rem;
+  transition: color 0.3s ease;
 }
 
 .thumbnail-title:hover {
-  text-decoration: underline;
+  color: var(--primary-color);
 }
 
 .thumbnail-controls {
@@ -168,6 +321,18 @@
   border-radius: 4px;
   border: 1px solid #ddd;
   font-size: 0.8rem;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 10px;
+}
+
+.thumbnail-controls select:focus {
+  border-color: var(--primary-color);
+  outline: none;
 }
 
 .empty-collection {
@@ -177,6 +342,14 @@
   border-radius: 8px;
   color: #777;
   grid-column: 1 / -1;
+  animation: fadeIn 0.5s ease-out;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.empty-collection:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .empty-collection p {
